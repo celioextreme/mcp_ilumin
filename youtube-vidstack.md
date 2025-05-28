@@ -23,7 +23,7 @@
             </button>
         </div>
     </div>
-    <!-- Utilize Exatamente Esse Código, apenas altere o src do vídeo e o poster nesse código javascript para usar o CDN do Vidstack. IMPORTANT: Precisa ser exatamente igual ao código abaixo! -->
+    <!-- Use exactly this code, just change the SRC of the video and the poster in this JavaScript code to use the Vidstack CDN. The controls should also be exactly the same (play-large and play only). Important: It needs to be exactly the same as the code below! -->
     <script type="module">
         document.addEventListener('DOMContentLoaded', async () => {
             const { PlyrLayout, VidstackPlayer } = await import('https://cdn.vidstack.io/player');
