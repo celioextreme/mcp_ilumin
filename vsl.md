@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página VSL</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>.esconder { display: none }</style>
 </head>
 <body class="bg-gray-50 min-h-screen">
     <div class="container mx-auto px-4 py-8 max-w-4xl">
@@ -23,11 +24,76 @@
         </div>
         
         <!-- CTA Button -->
-        <div class="text-center">
+        <div class="text-center esconder">
             <button class="bg-green-600 hover:bg-green-700 text-white font-bold py-4 px-8 rounded-lg text-xl shadow-lg transition-all duration-300 transform hover:scale-105">
                 Quero Adquirir o Produto
             </button>
         </div>
     </div>
+    
+    <!-- 10 Seconds with Delay in Components -->
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", function() {
+        /* Change the value 10 for the seconds where the sections will appear */
+            var SECONDS_TO_DISPLAY = 10;
+            var CLASS_TO_DISPLAY = ".esconder";
+        /* From now down don't have to change */
+            var EXPIRATION_DAYS = 14;
+            var alreadyDisplayedKey = "alreadyElsDisplayed" + SECONDS_TO_DISPLAY;
+            var elsHidden = document.querySelectorAll(CLASS_TO_DISPLAY);
+            var elsDisplayed = false;
+            var attempts = 0;
+        
+            class StorageHandler {
+                static expiryTime = EXPIRATION_DAYS * 86400000;
+        
+                static set(key, value) {
+                    localStorage.setItem(
+                        key,
+                        JSON.stringify({ value, expiry: Date.now() + this.expiryTime })
+                    );
+                }
+        
+                static get(key) {
+                    var item = localStorage.getItem(key);
+                    if (!item) return null;
+        
+                    var { value, expiry } = JSON.parse(item);
+                    if (Date.now() > expiry) {
+                        localStorage.removeItem(key);
+                        return null;
+                    }
+                    return value;
+                }
+            }
+        
+            var alreadyElsDisplayed = StorageHandler.get(alreadyDisplayedKey);
+        
+            var showHiddenElements = function () {
+                elsDisplayed = true;
+                elsHidden.forEach((e) => e.style.display = "block");
+                StorageHandler.set(alreadyDisplayedKey, true);
+            };
+        
+            var startWatchVideoProgress = function () {
+                if (typeof smartplayer === 'undefined' || !(smartplayer.instances && smartplayer.instances.length)) {
+                    if (attempts >= 10) return;
+                    attempts++;
+                    return setTimeout(startWatchVideoProgress, 1000);
+                }
+                smartplayer.instances[0].on('timeupdate', () => {
+                    if (elsDisplayed || smartplayer.instances[0].smartAutoPlay) return;
+                    if (smartplayer.instances[0].video.currentTime < SECONDS_TO_DISPLAY) return;
+                    showHiddenElements();
+                });
+            };
+        
+            if (alreadyElsDisplayed) {
+                setTimeout(showHiddenElements, 100);
+            } else {
+                startWatchVideoProgress();
+            }
+        });
+    </script>
 </body>
 </html>
