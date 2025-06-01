@@ -1,5 +1,5 @@
 # Introduction
-For synchronization with VTURB works, you need to add to the required elements hide the hidden class (which is a standard Tailwind CSS class to hide elements). Also, apply this JavaScript code on the site.
+For synchronization with VTURB works, you need to add to the required elements hide the hidden class (which is a standard Tailwind CSS class to hide elements). Also, apply this JavaScript code on the site. Copy and paste the same JavaScript code below as Codeblock JS to apply on the site, should be exactly the same just changing the time of 10 seconds for what the user desires
 
 ## Javascript
 ```js
