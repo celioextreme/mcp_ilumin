@@ -1,12 +1,18 @@
 # Introduction
 Use this code to synchronize the VTURB video (a video player) with the buttons, in the example below is the delay in 10 seconds (time in seconds), and the class that should be placed in the element to hide it is ".esconder"
 
+It is mandatory to put the code exactly the same as provided below without any change
+
 ## STYLE FOR HEAD (<head>)
-```
-<style>.esconder { display: none }</style>
+!IMPORTANT: Add to CSS a class (hide) with none display
+
+```css
+.esconder { display: none }
 ```
 
 ## JAVASCRIPT
+Paste exactly the code below (without changing the JS), the only values that should be changed are the time, which is 10 seconds, and the class if you change it from ".esconder". But prefer to keep the same class.
+
 ```js
 <script type="text/javascript">
 document.addEventListener("DOMContentLoaded", function() {
